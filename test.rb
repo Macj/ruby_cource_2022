@@ -1,1 +1,3 @@
-puts "Hellow World"
+puts "Hello World"
+
+puts 'Second message'
