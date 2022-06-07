@@ -54,3 +54,10 @@ decarator.show_by_indexes
 decarator = ArrayDecorator.new
 decarator.show_by_indexes
 
+
+
+for var_name[, var_name2 ...] in expression [do]
+
+for i in  (0...@array.size)
+  arr[i]
+end
