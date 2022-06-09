@@ -1,11 +1,3 @@
-
-params_map = [
-	['травоядный','рыбы',350,200,'карась','Male'],
-	['травоядный','рыбы',567,250,'карась','Femail'],
-	['хищник','рыбы',24,100,'окунь','Femail']
-]
-
-
 class AnimalParser
 	def initialize(file_name)
 		@file_name = file_name
@@ -44,10 +36,11 @@ class AnimalParser
 	def convert_animal_to_text(animal)
 		"#{animal.values.join(",")}"
 	end
+
 end
 
 class AnimalList
-	def initialize(params_map)
+	def initialize()
 		@animal = {
 		   type:    "", 
 		   kingdom: "", 
@@ -76,9 +69,9 @@ class AnimalList
   	end
 	end
 	# i
-  def create_animals_from(params_map)
-  	@animals = make_animals_array(params_map)
-  end
+	def create_animals_from_array(params_map)
+		@animals = make_animals_array(params_map)
+	end
 	# i
 	def create_animals_from(file_name)
 		parser = AnimalParser.new(file_name)
@@ -113,7 +106,7 @@ class AnimalList
 	end
 end
 
-class Decorator
+ class Decorator
 	def initialize(animal_list)
 		@animal_list = animal_list
 	end
@@ -138,53 +131,132 @@ class Decorator
 	end
 end
 
+# 4)Управляющий модуль
+# -Использует другие модули для решения поставленных задач
+
+# 	 Найти самого большого хищника и самого большого травоядного
+#    Найти самую длинную самку и самца
+#    Найти царство с самым большим представителем мужского пола и женского
+#    Найти вид с самым длинным названием и для этого вида найти самую крупную особь
+
 class ControlModule
-	def find_biggest_animals(animals)
-	   big_pre = find_biggest(animals, "хищник")
-	   big_herb = find_biggest(animals, "травоядный")
-	   puts "самый большой хищник" + big_pre.inspect
-	   puts "самый большой травоядный" + big_herb.inspect
+	def initialize
+		@file_name = ""
+		@animal_list = AnimalList.new()
+		@animal_parser = AnimalParser.new(@file_name)
+		@decor = Decorator.new(@animal_list)
 	end
 
-	def find_kind
-		puts "вид с самым длинным названием:"+animal_big[:kind]
-	  puts "а само большое животное:" + animal_big.inspect
-	 end
+	def create_animals_from_array(params_map)
+		@animal_list.create_animals_from_array(params_map)
 	end
-	 # def find_longest_animals(animals)
-#     fema = find_longest(animals, "Femail")
-#     mal = find_longest(animals, "Male")
 
-#    puts "самый длинный самец" + mal.inspect
-#    puts "самая длинная самка" + fema.inspect
-# end
+	def create_animals_from_file(file_name)
+		@file_name = file_name
+		@animal_list.create_animals_from(@file_name)
+	end
 
-#  find_longest_animals($animals)
+	def show(animal)
+		@decor.show(animal)
+	end
 
-# #Найти царство с самым большим представителем мужского пола и женского
+	def results_for_biggest
+		big_predators = @animal_list.find_biggest('хищник')
+		big_herb = @animal_list.find_biggest('травоядный')
+		    
+		show(big_predators)
+		show(big_herb)
+	end
 
+	def results_for_longest
+		fema = @animals_list.find_longest('Femail')
+		male = @animals_list.find_longest('Male')
 
+		show(fema)
+		show(male)
+	end
 
-# def find_weight_animals(animals)
-#    weight_f_f = find_kingdom(animals, "Femail")
-#    weight_f_m = find_kingdom(animals, "Male")
+	def results_for_kingdom_biggest
+		kingdom_big_male = @animals_list.find_kingdom_with_biggest('Male')
+		kingdom_big_female = @animals_list.find_kingdom_with_biggest('Female')
+		puts kingdom_big_male.[](:kingdom)
+		puts kingdom_big_female[:kingdom]
+	end
 
-#    puts weight_f_f[:kingdom]
-#    puts weight_f_m[:kingdom]
-# end
-
-# find_weight_animals($animals)
-
-
-# # Найти вид
-# # с самым длинным названием 
-# # и для этого вида найти самую крупную особь
-
-
-
-# find_kind_biggest_name($animals)
-   
-
-
-# end
+	def results_find_kind_big_name
+		big_animal_with_big_kind = @animals_list.find_king_with_biggest_name
+		puts big_animal_with_big_kind[:kind]
+		show(big_animal_with_big_kind)
+	end
 end
+
+# 6)Меню
+# -вводить данные от пользователя
+# -выводить результат действия
+
+class Menu
+	def initialize
+		@choice = "100"
+		@params_map = [
+			['травоядный','рыбы',350,200,'карась','Male'],
+			['травоядный','рыбы',567,250,'карась','Femail'],
+			['хищник','рыбы',24,100,'окунь','Femail']
+		]
+		@default_file = "./animals.txt"
+		@cont_module = ControlModule.new
+	end
+
+#-вывести варианты действий(меню)
+	def show_menu
+		puts `clear`
+	 	puts"
+			0 - load animals from file \n
+			1 - load animals from array \n
+	 		10 - Самый большой хищник и самый большой травоядный \n 
+			11 - Самый длинный самец и самая длинная самка \n 
+			12 - Царство с самым большим самцом и царство с самой большой самкой \n
+			13 - Вид с самым длинным названием и самая крупная особь этого вида \n"
+	end
+	# -получить выбор пользователя
+	def get_choice
+	  @choice = gets.chomp
+	end
+	# -обработать выбор пользователя, вызвав управляющий модуль
+	def handle_choice()
+	 	case @choice.to_i
+		when 0
+			puts 'enter file name or empty for default'
+			file_str = gets.chomp
+			file_name = file_str.empty? ? @default_file : file_str
+			@cont_module.create_animals_from_file(file_name)
+		when 1
+			@cont_module.create_animals_from_array(@params_map)
+		when 10
+			@cont_module.results_for_biggest
+		when 11
+			@cont_module.results_for_longest
+		when 12
+			@cont_module.results_for_kingdom_biggest
+		when 13
+			@cont_module.results_find_kind_big_name
+		when 100
+			puts "Hi there!! Let`s begin"             
+		else 
+		    puts "Wrong choice try agane"             
+		end
+		puts "Enter to continue:"
+		gets.chomp
+	end
+
+	def run
+		while @choice != 'exit'
+			handle_choice
+			show_menu
+			get_choice
+		end
+	end
+
+end
+
+
+Menu.new.run
