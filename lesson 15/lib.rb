@@ -114,14 +114,10 @@ class Decorator
 		@animal_list = animal_list
 	end
 
+	#interface
 	def show_animals_count
 		print "Animals count: #{animals.count}\n"
 	end
-
-	def show_animals_table
-  	table_head
-  	table_body
-  end
 
 	# -вывод животного
 	def show(animal)
@@ -136,26 +132,30 @@ class Decorator
 		puts "======="
 	end
 
+	#  -вывести конкретное животное из списка
+	def show_animal_by(index)
+		show(animals[index])
+	end
+
 	# -выводить много животных
 	def show_animals
 		animals.each do |animal|
 		  show(animal)
 		end
 	end
-
-	#  -вывести конкретное животное из списка
-	def show_animal_by(index)
-		show(animals[index])
+	def show_animals_table
+		table_head
+		table_body
 	end
 
 	private
 
-	def animals
-		@animal_list.animals
-	end
-
+	#support
 	def animal
 		@animal_list.animal
+	end
+	def animals
+		@animal_list.animals
 	end
 
 	### table part
@@ -163,7 +163,7 @@ class Decorator
 		print "\n"
 	end
 
-	def coumn_separator
+	def column_separator
 		print "|"
 	end
 
@@ -178,18 +178,18 @@ class Decorator
 	# пример `хищники    |` или `15     |`
 	def formated_table_block(el,i)
 		formated_table_cell(el,i)
-		coumn_separator
+		column_separator
 	end
 
   def table_line(list)
-  	coumn_separator
+		column_separator
   	list.each_with_index do |el, i|
   		formated_table_block(el, i)
   	end
   	new_line
   end
 
-  def separator
+  def separator_line
   	columns_count = animal.keys.count + 1
   	column_size = 17
   	screen_columns_count = columns_count * column_size - 10
@@ -199,12 +199,12 @@ class Decorator
 
   def table_head
   	show_animals_count
-  	separator
+		separator_line
   	
   	keys = [:index] + animal.keys
   	table_line(keys)
-  	
-  	separator
+
+		separator_line
   end
 
   def table_body
@@ -212,11 +212,8 @@ class Decorator
  			values = [index] + animal.values
  			table_line(values)
  		end
- 		separator
+		separator_line
   end
-
-  
-
 	### end table part
 end
 
@@ -229,6 +226,7 @@ end
 #    Найти вид с самым длинным названием и для этого вида найти самую крупную особь
 
 class ControlModule
+	# initialization
 	def initialize
 		@file_name = ""
 		@animal_list = AnimalList.new()
@@ -245,6 +243,7 @@ class ControlModule
 		@animal_list.create_animals_from(@file_name)
 	end
 
+	#dicoration
 	def show(animal)
 		@decor.show(animal)
 	end
@@ -257,6 +256,7 @@ class ControlModule
 		@decor.show_animal_by(index)
 	end
 
+	# logic
 	def results_for_biggest
 		big_predators = @animal_list.find_biggest('хищник')
 		big_herb = @animal_list.find_biggest('травоядный')
