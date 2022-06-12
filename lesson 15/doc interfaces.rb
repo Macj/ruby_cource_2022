@@ -44,7 +44,7 @@ def animal_with_longest_kind_name
 
 
 #
-# 2 работа с файлами
+######## 2 работа с файлами
  class AnimalParser
 # ###Data:
 # `название файла`
@@ -60,7 +60,7 @@ def convert_animals_to_text
 def write_animals_data_to(file_name = nil)
 
 #
-# 3 вывод информации
+####### 3 вывод информации
 
 # ***Data:
 @animal_list
@@ -73,21 +73,48 @@ def show_animals
 #  -вывести конкретное животное из списка
 def show_animal_by(index)
 #
-# 4 управляющий модуль
+def show_animals_in_table
 #
+###### 4 управляющий модуль
+def biggest_animal_by(type)
+ # -Найти самую длинную самку и самца
+  def longest_animal_for(sex)
+   # -Найти царство с самым большим представителем мужского пола и женского
+   def biggest_animal_kingdom
+    # -Найти вид с самым длинным названием и для этого вида найти самую крупную особь
+    def animal_with_longest_kind_name
 #
-# 5 меню
+def create_animals(params_map)
+ # -создать его из текст файла
+ def create_animals_from(file_name)
+
+# file
+def parse_animal_data_from_file
+ # -преобразовать текст в структуры данных
+ def parse_animal_data_from_text
+  # -преобразовать структуры данных в текс
+  def convert_animals_to_text
+   # -сохранить текст в файл
+   def write_animals_data_to(file_name = nil)
+#
+def show_animals
+ #  -вывести конкретное животное из списка
+def show_animal_by(index)
+ #
+def show_animals_in_table
+#
+####### 5 меню
 #  ***Data
 # - string of user choice
 @choice
 #
 # ***functions
 #-вывести варианты действий(меню)
-def show_menu
+# def show_menu
 # -получить выбор пользователя
-def get_choice
+# def get_choice
 # -обработать выбор пользователя, вызвав управляющий модуль
-def handle_choice
+# def handle_choice
 # -в цикле запрашивать выбор
 def run
 #
