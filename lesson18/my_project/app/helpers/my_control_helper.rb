@@ -1,0 +1,2 @@
+module MyControlHelper
+end
