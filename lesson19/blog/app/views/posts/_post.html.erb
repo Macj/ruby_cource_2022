@@ -1,0 +1,15 @@
+<div id="<%= dom_id post %>">
+  <p>
+    <strong>Body:</strong>
+    <%= post.body %>
+  </p>
+
+  <p>
+    <strong>Author:</strong>
+    <%= post.autor.name %>
+  </p>
+
+</div>
+<p>--------COMMENTS----------</p>
+<%= render post.comments %>
+<p>=======================</p>

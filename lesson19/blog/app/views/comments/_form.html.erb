@@ -1,0 +1,29 @@
+<%= form_with(model: comment) do |form| %>
+  <% if comment.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(comment.errors.count, "error") %> prohibited this comment from being saved:</h2>
+
+      <ul>
+        <% comment.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.select :autor_id, Autor.all.map {|a| [a.name, a.id]} %>
+  </div>
+  <div>
+    <%= form.select :post_id, Post.all.map {|a| [a.body.first(15), a.id]} %>
+  </div>
+
+  <div>
+    <%= form.label :body, style: "display: block" %>
+    <%= form.text_area :body %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
