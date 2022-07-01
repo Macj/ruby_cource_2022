@@ -1,0 +1,22 @@
+<div id="<%= dom_id song %>">
+  <p>
+    <strong>Title:</strong>
+    <%= song.title %>
+  </p>
+
+  <p>
+    <strong>Artist:</strong>
+    <%=link_to((song.artist).name, song.artist) %>
+  </p>
+
+  <p>
+    <strong>Size:</strong>
+    <%= song.size %>
+  </p>
+
+  <p>
+    <strong>Cathegory:</strong>
+    <%= song.cathegory %>
+  </p>
+
+</div>
