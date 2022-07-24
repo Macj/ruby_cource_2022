@@ -1,0 +1,36 @@
+<div class="container">
+<%= form_with(model: article) do |form| %>
+  <% if article.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(article.errors.count, "error") %> prohibited this article from being saved:</h2>
+
+      <ul>
+        <% article.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= form.label :title, style: "display: block" %>
+    <%= form.text_field :title, class: "form-control"%>
+  </div>
+
+  <div class="mb-3">
+    <%= form.label :body, style: "display: block" %>
+    <%= form.text_area :body, class: "form-control"%>
+  </div>
+
+    <select class="form-select" aria-label="Default select example">
+      <option selected>Open this select menu</option>
+      <option value="1">One</option>
+      <option value="2">Two</option>
+      <option value="3">Three</option>
+    </select>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+</div>

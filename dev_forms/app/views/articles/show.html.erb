@@ -1,0 +1,22 @@
+<p style="color: green"><%= notice %></p>
+
+<h1> Article: </h1> 
+
+<%= render @article %>
+
+<% if @article.comment.nil? %>
+  <h3>New Comment</h3> 
+  <%= render "/comments/form", comment: @comment %>
+<% else %>
+  <h3>Comment:</h3>
+  <%= render @article.comment %>
+  <% end %>
+<div>
+  <%= link_to "Edit this article", edit_article_path(@article) %>  | 
+  <%= link_to "Edit this comment", edit_comment_path(@comment.article) %> <br> 
+  <br>
+  <%= link_to "Back to articles", articles_path %> 
+  <br>  
+  <br><%= button_to "Destroy this article", @article, method: :delete %>
+</div>
+ 

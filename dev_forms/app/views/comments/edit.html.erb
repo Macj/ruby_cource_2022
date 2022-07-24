@@ -1,0 +1,12 @@
+<div class="container">
+<h1>Editing comment</h1>
+</div>
+
+<%= render "form", comment: @comment %>
+
+<br>
+
+<div class="container">
+  <%= link_to "Back to articles", articles_path %> | 
+  <%= link_to "Back to this article", @comment.article %> 
+</div>
