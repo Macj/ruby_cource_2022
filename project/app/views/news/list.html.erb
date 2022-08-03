@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>News</h1>
+
+<div id="news">
+  <% @list.each do |l| %>
+    <%= render '/news/post', p: l %>
+    <p>
+      <!-- <= link_to "Show this spare", post_path(l) > -->
+    </p>
+  <% end %>
+</div>
+
+<!-- <= link_to "New spare", new_post_path > -->

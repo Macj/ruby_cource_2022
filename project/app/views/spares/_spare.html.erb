@@ -1,0 +1,21 @@
+<div id="<%= dom_id spare %>">
+  <p>
+    <strong>Name:</strong>
+    <%= spare.name %>
+  </p>
+
+  <p>
+    <strong>Price:</strong>
+    <%= spare.price %>
+  </p>
+
+
+  <% if spare.picture.attached? %>
+    <p>
+      <strong>Picture:</strong>
+      <image src="<%= url_for(spare.picture) %>" style="width: 480px"></image>
+    </p>
+  <% end %>
+
+
+</div>

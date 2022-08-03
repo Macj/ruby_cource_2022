@@ -1,0 +1,14 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @spare %>
+
+<% if @spare.picture.attached? %>
+  <image src="<%=(url_for(@spare.picture)) %>">
+<% end %>
+
+<div>
+  <%= link_to "Edit this spare", edit_spare_path(@spare) %> |
+  <%= link_to "Back to spares", spares_path %>
+
+  <%= button_to "Destroy this spare", @spare, method: :delete %>
+</div>

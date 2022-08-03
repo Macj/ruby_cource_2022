@@ -1,0 +1,19 @@
+<p style="color: green"><%= notice %></p>
+
+<h1>Spares</h1>
+
+<div id="spares">
+  <% @spares.each do |spare| %>
+    <%= render spare %>
+    <p>
+      <%= link_to "Show this spare", spare %>
+    </p>
+  <% end %>
+</div>
+
+<% @body_spares.each do |spare| %>
+  <p>
+    <%= spare %>
+  </p>
+<% end %>
+<%= link_to "New spare", new_spare_path %>
